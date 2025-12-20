@@ -1,101 +1,115 @@
 "use client";
 
 import { useAuth } from "@/AuthProvider/AuthProvider";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { FaGoogle } from "react-icons/fa";
 import { FiMail, FiLock } from "react-icons/fi";
 
 export default function LoginPage() {
-  const { login } = useAuth();
-  const router = useRouter()
+  // get login function & loading state from AuthContext
+  const { login, loading } = useAuth();
+  const router = useRouter();
 
+  // handle form submit
   const handleSubmit = async (e: any) => {
-    e.preventDefault(); // ❌ stop page reload
+    e.preventDefault(); // stop page reload
 
+    // get form values
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    console.log({ email, password });
-
     try {
+      // call login function
       await login(email, password);
-      toast.success("Login success")
-      router.push("/home-dashboard")
 
-    } catch (error: any) {
-      alert(error.message);
+      // success toast
+      toast.success("Login success", {
+        position: "top-center",
+      });
+
+      // redirect after login
+      router.push("/home-dashboard");
+    } catch (error) {
+      // error toast
+      toast.error("Email or iqama is incorrect", {
+        position: "top-center",
+      });
     }
-
   };
 
+  const handlerIqamaNumber = () => {
+
+    return toast.success("Please check your email. We have sent you the instructions")
+
+  }
+
   return (
-    <div className="flex items-center h-screen justify-center bg-gradient-to-b from-[#F5F7FF] via-[#fffbee] to-[#E6EFFF] px-4">
+    <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#F5F7FF] via-[#fffbee] to-[#E6EFFF] px-4">
+      
+      {/* Login Card */}
+      <div className="flex w-full max-w-96 flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-8 shadow-lg">
 
-      <div className="flex w-full border-b-3  rounded-xl border-gray-800 shadow-lg bg-white p-8 max-w-96 flex-col items-center justify-center">
+        {/* Title */}
+        <h2 className="text-2xl font-bold text-slate-900">
+          Darkstone Group
+        </h2>
 
-        <h2 className="text-2xl font-bold text-slate-900">Darkstone Group</h2>
+        {/* Subtitle */}
+        <p className="pb-5 text-center w-72 pt-2 text-sm text-gray-500/90">
+          Please make sure your email and iqama number are correct
+        </p>
 
-        <div className="pb-5">
-          <p className=" text-sm text-gray-500/90">Welcome back!</p>
-        </div>
-
+        {/* Login Form */}
         <form onSubmit={handleSubmit} className="w-full">
-          {/* Email */}
-          <div className="flex h-12 w-full items-center gap-2 rounded-full border border-gray-200 pl-5 focus-within:border-gray-400">
+
+          {/* Email input */}
+          <div className="flex h-12 items-center gap-2 rounded-full bg-transparent  border border-gray-200 pl-5 focus-within:border-gray-400">
             <FiMail className="text-gray-400" />
             <input
               type="email"
-              placeholder="Email address"
               name="email"
+              placeholder="Email address"
+              required
               className="h-full w-full bg-transparent text-sm outline-none"
             />
           </div>
 
-          {/* Password */}
-          <div className="mt-6 flex h-12 w-full items-center gap-2 rounded-full border border-gray-200 pl-5 focus-within:border-gray-400">
+          {/* Password input */}
+          <div className="mt-6 flex h-12 items-center gap-2 rounded-full border border-gray-200 pl-5 focus-within:border-gray-400">
             <FiLock className="text-gray-400" />
             <input
               type="password"
               name="password"
+              placeholder="Password"
+              required
               className="h-full w-full bg-transparent text-sm outline-none"
             />
           </div>
 
           {/* Remember & Forgot */}
-          <div className="mt-8 flex w-full items-center justify-between text-sm">
+          <div className="mt-8 flex items-center justify-between text-sm">
             <label className="flex items-center gap-2 text-gray-500 cursor-pointer">
               <input type="checkbox" className="accent-gray-800" />
               Remember me
             </label>
-            <a href="#" className="text-gray-800 underline">
+
+            <span onClick={handlerIqamaNumber} className="text-gray-800 underline cursor-pointer">
               Forgot iqama number?
-            </a>
+            </span>
+
           </div>
 
-          {/* Submit */}
+          {/* Submit Button */}
           <button
             type="submit"
-            className="mt-8 cursor-pointer h-11 w-full rounded-full bg-gray-700 text-white transition disabled:opacity-60"
+            
+            className="mt-8 h-11 w-full cursor-pointer rounded-full bg-gray-700 text-white transition disabled:opacity-60 disabled:cursor-not-allowed"
           >
             Login
+
           </button>
+
         </form>
-
-        {/* Signup */}
-        {/* <p className="mt-4 text-gray-800/90">
-          Don’t have an account?{" "}
-          <Link
-            href="/register"
-            className="text-gray-800 font-semibold underline"
-          >
-            Sign up
-          </Link>
-        </p> */}
-
-
       </div>
     </div>
   );
