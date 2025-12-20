@@ -32,7 +32,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center py-16 justify-center bg-slate-100 px-4">
+    <div className="flex items-center h-screen justify-center bg-gradient-to-b from-[#F5F7FF] via-[#fffbee] to-[#E6EFFF] px-4">
 
       <div className="flex w-full border-b-3  rounded-xl border-gray-800 shadow-lg bg-white p-8 max-w-96 flex-col items-center justify-center">
 
