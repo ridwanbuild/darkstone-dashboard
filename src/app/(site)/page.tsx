@@ -1,5 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import Loading from "../loading";
+import LoginPage from "./login/page";
 
 
 export default function Home() {
@@ -7,7 +8,8 @@ export default function Home() {
     
 
     <div>
-      <HeroSection></HeroSection>
+      {/* <HeroSection></HeroSection> */}
+      <LoginPage></LoginPage>
     </div>
 
 

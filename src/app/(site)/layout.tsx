@@ -9,9 +9,9 @@ export default function SiteLayout({
 }) {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

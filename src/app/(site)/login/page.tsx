@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/AuthProvider/AuthProvider";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
@@ -9,6 +10,7 @@ import { FiMail, FiLock } from "react-icons/fi";
 
 export default function LoginPage() {
   const { login } = useAuth();
+  const router = useRouter()
 
   const handleSubmit = async (e: any) => {
     e.preventDefault(); // ❌ stop page reload
@@ -21,21 +23,23 @@ export default function LoginPage() {
     try {
       await login(email, password);
       toast.success("Login success")
+      router.push("/home-dashboard")
+
     } catch (error: any) {
       alert(error.message);
     }
 
-
-
   };
 
   return (
-    <div className="flex items-center py-35 justify-center  px-4">
-      <div className="flex w-full border rounded-xl border-gray-200 shadow-lg bg-white p-8 max-w-96 flex-col items-center justify-center">
-        <h2 className="text-4xl font-bold text-slate-900">Login</h2>
+    <div className="flex items-center py-16 justify-center bg-slate-100 px-4">
+
+      <div className="flex w-full border-b-3  rounded-xl border-gray-800 shadow-lg bg-white p-8 max-w-96 flex-col items-center justify-center">
+
+        <h2 className="text-2xl font-bold text-slate-900">Darkstone Group</h2>
 
         <div className="pb-5">
-          <p className="mt-3 text-sm text-gray-500/90">Welcome back!</p>
+          <p className=" text-sm text-gray-500/90">Welcome back!</p>
         </div>
 
         <form onSubmit={handleSubmit} className="w-full">
@@ -74,14 +78,14 @@ export default function LoginPage() {
           {/* Submit */}
           <button
             type="submit"
-            className="mt-8 cursor-pointer h-11 w-full rounded-full bg-gradient-to-b from-gray-600 to-gray-800 text-white hover:from-gray-700 hover:to-gray-900 transition disabled:opacity-60"
+            className="mt-8 cursor-pointer h-11 w-full rounded-full bg-gray-700 text-white transition disabled:opacity-60"
           >
             Login
           </button>
         </form>
 
         {/* Signup */}
-        <p className="mt-4 text-gray-800/90">
+        {/* <p className="mt-4 text-gray-800/90">
           Don’t have an account?{" "}
           <Link
             href="/register"
@@ -89,7 +93,9 @@ export default function LoginPage() {
           >
             Sign up
           </Link>
-        </p>
+        </p> */}
+
+
       </div>
     </div>
   );

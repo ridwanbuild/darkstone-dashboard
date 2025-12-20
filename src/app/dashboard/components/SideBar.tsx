@@ -46,6 +46,7 @@ const menuItems = [
   // { name: "Attendance", href: "/dashboard/employee/attendance", icon: FiClipboard },
   // { name: "Payslips", href: "/dashboard/employee/payslips", icon: FiDollarSign },
   // { name: "Profile", href: "/dashboard/employee/profile", icon: FiUser },
+  
 ];
 
 
