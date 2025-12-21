@@ -63,14 +63,14 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="w-full">
 
           {/* Email input */}
-          <div className="flex h-12 items-center gap-2 rounded-full bg-transparent  border border-gray-200 pl-5 focus-within:border-gray-400">
+          <div className="flex h-12 items-center gap-2 rounded-full autofill:bg-transparent bg-transparent  border border-gray-200 pl-5 focus-within:border-gray-400">
             <FiMail className="text-gray-400" />
             <input
               type="email"
               name="email"
               placeholder="Email address"
               required
-              className="h-full w-full bg-transparent text-sm outline-none"
+              className="h-full w-full autofill:bg-transparent bg-transparent text-sm outline-none"
             />
           </div>
 

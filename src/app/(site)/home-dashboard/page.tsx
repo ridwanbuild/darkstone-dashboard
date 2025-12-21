@@ -20,35 +20,36 @@ import { WiDaySunny } from "react-icons/wi";
 const quickCards = [
   {
     title: "Happy Notes",
-    desc: "Appreciation & feedback from team",
+    desc: "Appreciation and feedback from the company",
     icon: FiSmile,
   },
   {
     title: "Assets",
-    desc: "Assigned devices & resources",
+    desc: "View assigned devices and resources",
     icon: FiBox,
   },
   {
-    title: "Email Signatures",
-    desc: "Manage your official signature",
+    title: "Actions",
+    desc: "Report or follow up on company issues",
     icon: FiMail,
   },
   {
     title: "Support Tickets",
-    desc: "View or raise IT tickets",
+    desc: "Raise or track IT support requests",
     icon: FiHelpCircle,
   },
   {
-    title: "Tools",
-    desc: "Internal company tools",
+    title: "My Requests",
+    desc: "Access internal company requests",
     icon: FiPenTool,
   },
   {
     title: "Notifications",
-    desc: "Latest alerts & updates",
+    desc: "View recent alerts and updates",
     icon: FiBell,
   },
 ];
+
 
 /* ---------------- Employee Status Cards (RE-USED) ---------------- */
 const statusCards = [

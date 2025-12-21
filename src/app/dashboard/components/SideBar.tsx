@@ -22,6 +22,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import Link from "next/link";
 
 const menuItems = [
+  
   // 🔹 COMMON
   { name: "Dashboard", href: "/dashboard", icon: FiHome },
 
