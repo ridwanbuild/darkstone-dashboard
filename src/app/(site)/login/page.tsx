@@ -10,6 +10,9 @@ export default function LoginPage() {
   const { login, loading } = useAuth();
   const router = useRouter();
 
+  // demo auth 
+
+
   // handle form submit
   const handleSubmit = async (e: any) => {
     e.preventDefault(); // stop page reload
@@ -22,37 +25,49 @@ export default function LoginPage() {
       // call login function
       await login(email, password);
 
+        // (temporary logic – will be replaced later)
+      const isAdmin = email === "admin@gmail.com";
+
       // success toast
       toast.success("Login success", {
         position: "top-center",
       });
 
-      // redirect after login
-      router.push("/home-dashboard");
+
+      if (isAdmin) {
+        return router.push("/dashboard")
+      } else {
+        return router.push("user-dashboard")
+      }
+
+
     } catch (error) {
       // error toast
       toast.error("Email or iqama is incorrect", {
         position: "top-center",
       });
+
     }
   };
 
+
   const handlerIqamaNumber = () => {
+    return toast.success(
+      "Please check your email. We have sent you the instructions"
+    );
+  };
 
-    return toast.success("Please check your email. We have sent you the instructions")
 
-  }
+
+
+
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#F5F7FF] via-[#fffbee] to-[#E6EFFF] px-4">
-      
       {/* Login Card */}
       <div className="flex w-full max-w-96 flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-8 shadow-lg">
-
         {/* Title */}
-        <h2 className="text-2xl font-bold text-slate-900">
-          Darkstone Group
-        </h2>
+        <h2 className="text-2xl font-bold text-slate-900">Darkstone Group</h2>
 
         {/* Subtitle */}
         <p className="pb-5 text-center w-72 pt-2 text-sm text-gray-500/90">
@@ -61,16 +76,16 @@ export default function LoginPage() {
 
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="w-full">
-
           {/* Email input */}
           <div className="flex h-12 items-center gap-2 rounded-full autofill:bg-transparent bg-transparent  border border-gray-200 pl-5 focus-within:border-gray-400">
             <FiMail className="text-gray-400" />
             <input
               type="email"
               name="email"
+              autoComplete="off"
               placeholder="Email address"
               required
-              className="h-full w-full autofill:bg-transparent bg-transparent text-sm outline-none"
+              className="h-full w-full bg-transparent autofill:bg-transparent text-sm outline-none"
             />
           </div>
 
@@ -93,24 +108,28 @@ export default function LoginPage() {
               Remember me
             </label>
 
-            <span onClick={handlerIqamaNumber} className="text-gray-800 underline cursor-pointer">
+            <span
+              onClick={handlerIqamaNumber}
+              className="text-gray-800 underline cursor-pointer"
+            >
               Forgot iqama number?
             </span>
-
           </div>
 
           {/* Submit Button */}
           <button
             type="submit"
-            
             className="mt-8 h-11 w-full cursor-pointer rounded-full bg-gray-700 text-white transition disabled:opacity-60 disabled:cursor-not-allowed"
           >
             Login
-
           </button>
+
+
 
         </form>
       </div>
+
+
     </div>
   );
 }

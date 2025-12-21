@@ -112,7 +112,7 @@ export default function ProfileDropdown() {
         )}
       </div>
 
-        <Link className="lg:hidden " href={"/"}> Back </Link>
+        <Link className="bg-slate-300 rounded-full px-4 py-1" href={"/"}> Back </Link>
 
     </div>
   );

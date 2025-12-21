@@ -11,7 +11,7 @@ export default function DashboardLayout({
   
 
   return (
-    <ProtectedRoute>
+   
       <div className="flex min-h-screen">
         {/* Sidebar */}
         <div className="lg:w-1/5 ">
@@ -25,6 +25,6 @@ export default function DashboardLayout({
         </div>
       </div>
 
-    </ProtectedRoute>
+   
   );
 }

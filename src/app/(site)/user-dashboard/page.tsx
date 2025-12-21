@@ -65,25 +65,28 @@ const statusCards = [
     iconColor: "text-indigo-600",
     items: ["Today: Working from Office", "Shift: 9:00 AM – 6:00 PM"],
   },
+
   {
     title: "Happiness Index",
     icon: FiCheckCircle,
     iconColor: "text-green-600",
     items: ["Mood: 😊 Happy", "Last feedback: Positive"],
   },
+
 ];
 
-export default function DashboardHome() {
+
+
+
+export default function userDashboard() {
   const currentTime = new Date().toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
-
   });
 
 
+
   return (
-
-
     <div className="min-h-screen  bg-gray-50">
       <div className="container mx-auto px-4">
         {/* ---------------- Top Navbar ---------------- */}
@@ -102,7 +105,7 @@ export default function DashboardHome() {
               <FiSearch className="text-gray-500" />
               <input
                 type="text"
-                placeholder="Search (demo)"
+                placeholder="Search..."
                 className="bg-transparent outline-none text-sm w-full"
               />
             </div>
@@ -122,7 +125,6 @@ export default function DashboardHome() {
 
           </div>
         </header>
-
 
         {/* ---------------- Main Content ---------------- */}
         <main className="max-w-7xl  mx-auto px-4 pb-16 lg:py-6 space-y-10">
@@ -155,6 +157,7 @@ export default function DashboardHome() {
                     </p>
                   ))}
                 </div>
+
               );
             })}
           </section>
