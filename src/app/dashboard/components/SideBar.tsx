@@ -28,9 +28,11 @@ const menuItems = [
   { name: "Add Employee", href: "/dashboard/admin/add-employee", icon: FiUser },
   { name: "User Management", href: "/dashboard/admin/users", icon: FiUsers },
   { name: "Employee Directory", href: "/dashboard/admin/employees", icon: FiBriefcase },
-  { name: "Support Center", href: "/dashboard/admin/support", icon: FiClipboard },
-  { name: "Asset Management", href: "/dashboard/admin/assets", icon: FiLayers },
-  { name: "Service Requests", href: "/dashboard/admin/requests", icon: FiCheckSquare },
+  { name: "Employee List", href: "/dashboard/admin/employees-list", icon: FiBriefcase },
+
+  // { name: "Support Center", href: "/dashboard/admin/support", icon: FiClipboard },
+  // { name: "Asset Management", href: "/dashboard/admin/assets", icon: FiLayers },
+  // { name: "Service Requests", href: "/dashboard/admin/requests", icon: FiCheckSquare },
 
 ];
 

@@ -26,7 +26,7 @@ export function Action() {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="text-white hover:text-white bg-indigo-500 px-3 py-1 rounded text-xs hover:bg-indigo-600 transition cursor-pointer"
+          className="text-white hover:text-white bg-indigo-500 px-3 py-1 rounded text-xs 0 transition cursor-pointer"
         >
           Action
         </Button>
