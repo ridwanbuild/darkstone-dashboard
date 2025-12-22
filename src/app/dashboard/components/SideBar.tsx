@@ -22,33 +22,18 @@ import { FaArrowLeft } from "react-icons/fa";
 import Link from "next/link";
 
 const menuItems = [
-  
   // 🔹 COMMON
   { name: "Dashboard", href: "/dashboard", icon: FiHome },
-
   // 🔴 ADMIN
-  { name: "Admin Overview", href: "/dashboard/admin", icon: FiShield },
-  { name: "Users", href: "/dashboard/admin/users", icon: FiUsers },
-  { name: "System Logs", href: "/dashboard/admin/system-logs", icon: FiActivity },
-  { name: "Analytics", href: "/dashboard/admin/analytics", icon: FiBarChart2 },
-  { name: "Payroll", href: "/dashboard/admin/payroll", icon: FiDollarSign },
-  { name: "Admin Settings", href: "/dashboard/admin/settings", icon: FiSettings },
+  { name: "Add Employee", href: "/dashboard/admin/add-employee", icon: FiUser },
+  { name: "User Management", href: "/dashboard/admin/users", icon: FiUsers },
+  { name: "Employee Directory", href: "/dashboard/admin/employees", icon: FiBriefcase },
+  { name: "Support Center", href: "/dashboard/admin/support", icon: FiClipboard },
+  { name: "Asset Management", href: "/dashboard/admin/assets", icon: FiLayers },
+  { name: "Service Requests", href: "/dashboard/admin/requests", icon: FiCheckSquare },
 
-  // 🟡 EDITOR
-  // { name: "Editor Overview", href: "/dashboard/editor", icon: FiEdit3 },
-  // { name: "Projects", href: "/dashboard/editor/projects", icon: FiBriefcase },
-  // { name: "Tasks", href: "/dashboard/editor/tasks", icon: FiLayers },
-  // { name: "Content Approval", href: "/dashboard/editor/content", icon: FiClipboard },
-  // { name: "Team Performance", href: "/dashboard/editor/performance", icon: FiBarChart2 },
-
-  // 🟢 EMPLOYEE
-  // { name: "Employee Overview", href: "/dashboard/employee", icon: FiHome },
-  // { name: "My Tasks", href: "/dashboard/employee/my-tasks", icon: FiCheckSquare },
-  // { name: "Attendance", href: "/dashboard/employee/attendance", icon: FiClipboard },
-  // { name: "Payslips", href: "/dashboard/employee/payslips", icon: FiDollarSign },
-  // { name: "Profile", href: "/dashboard/employee/profile", icon: FiUser },
-  
 ];
+
 
 
 export default function Sidebar() {
@@ -59,7 +44,8 @@ export default function Sidebar() {
     <>
       {/* Mobile Toggle Button */}
 
-      <div className=" w-full py-10">
+      <div className="w-full ">
+        <div className="bg-white w-full py-10">
         <button
           onClick={() => setOpen(true)}
           className="md:hidden fixed top-4 cursor-pointer border p-1 rounded-sm border-gray-400 left-4 z-50 text-2xl text-gray-700"
@@ -78,13 +64,13 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 z-50
+        className={`fixed top-0 left-0 h-full w-64 bg-white  z-50
         transform transition-transform duration-300
         ${open ? "translate-x-0" : "-translate-x-full"}
         md:translate-x-0`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-gray-300 border-b">
+        <div className="flex items-center justify-between px-6 py-4  border-gray-300 border-b">
           
           <Link href={'/'} className="text-xl font-bold text-teal-800">Dashboard</Link>
 
@@ -110,7 +96,7 @@ export default function Sidebar() {
                   setActive(item.name);
                   setOpen(false);
                 }}
-                className={`w-full cursor-pointer flex items-center gap-3 px-4 py-3 rounded-lg transition
+                className={`w-full cursor-pointer capitalize flex items-center gap-3 px-4 py-3 rounded-lg transition
                 ${
                   isActive
                     ? "bg-blue-50 text-blue-600"
@@ -127,13 +113,16 @@ export default function Sidebar() {
         </nav>
 
         {/* Footer */}
-        <div className="absolute bottom-0 w-full px-4 py-4 border-t border-gray-300">
+        <div className="absolute bottom-0 w-full px-4 py-1 border-t border-gray-300">
           <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-red-50">
             <FiLogOut className="text-xl" />
             <span className="font-medium">Logout</span>
           </button>
         </div>
       </aside>
+
+      </div>
+
     </>
   );
 }
