@@ -24,12 +24,14 @@ export function Action() {
   return (
     <Dialog>
       <DialogTrigger asChild>
+        
         <Button
           variant="outline"
           className="text-white hover:text-white bg-indigo-500 px-3 py-1 rounded text-xs 0 transition cursor-pointer"
         >
           Action
         </Button>
+
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">

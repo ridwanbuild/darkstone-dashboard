@@ -50,7 +50,6 @@ const quickCards = [
   },
 ];
 
-
 /* ---------------- Employee Status Cards (RE-USED) ---------------- */
 const statusCards = [
   {
@@ -72,11 +71,7 @@ const statusCards = [
     iconColor: "text-green-600",
     items: ["Mood: 😊 Happy", "Last feedback: Positive"],
   },
-
 ];
-
-
-
 
 export default function userDashboard() {
   const currentTime = new Date().toLocaleTimeString([], {
@@ -84,21 +79,14 @@ export default function userDashboard() {
     minute: "2-digit",
   });
 
-
-
   return (
     <div className="min-h-screen  bg-gray-50">
       <div className="container mx-auto px-4">
         {/* ---------------- Top Navbar ---------------- */}
 
         <header className="pt-2 lg:py-16 lg:pt-5 pb-8">
-          
           <div className="flex bg-white shadow-md border border-gray-200 rounded-full items-center justify-between px-4 py-3 max-w-5xl mx-auto">
-
-            <h1 className="text-xl font-semibold text-gray-800">
-              Dashboard
-            </h1>
-
+            <h1 className="text-xl font-semibold text-gray-800">Dashboard</h1>
 
             {/* Search */}
             <div className="hidden md:flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg w-72">
@@ -120,9 +108,14 @@ export default function userDashboard() {
             </div>
 
             <div>
-              <Link href={'/'} className="text-gray-600 bg-slate-100  px-4 rounded-full py-2  "> Back </Link>
+              <Link
+                href={"/"}
+                className="text-gray-600 bg-slate-100  px-4 rounded-full py-2  "
+              >
+                {" "}
+                Back{" "}
+              </Link>
             </div>
-
           </div>
         </header>
 
@@ -157,11 +150,9 @@ export default function userDashboard() {
                     </p>
                   ))}
                 </div>
-
               );
             })}
           </section>
-
 
           {/* ---------------- Quick Access ---------------- */}
           <section>
@@ -186,9 +177,7 @@ export default function userDashboard() {
                         <h3 className="font-semibold text-gray-800">
                           {card.title}
                         </h3>
-                        <p className="text-sm text-gray-500">
-                          {card.desc}
-                        </p>
+                        <p className="text-sm text-gray-500">{card.desc}</p>
                       </div>
                     </div>
                   </div>
@@ -196,14 +185,8 @@ export default function userDashboard() {
               })}
             </div>
           </section>
-
-
         </main>
-
-
       </div>
     </div>
-
-
   );
 }

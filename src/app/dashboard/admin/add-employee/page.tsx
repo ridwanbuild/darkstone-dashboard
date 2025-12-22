@@ -2,13 +2,12 @@
 
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 export default function AddEmployee() {
 
   const router = useRouter()
-  const [profileImage, setProfileImage] = useState<File | null>(null);
+  // const [profileImage, setProfileImage] = useState<File | null>(null);
 
 
   const handlerSubmit = async (e: any) => {
@@ -27,7 +26,7 @@ export default function AddEmployee() {
       address: form.address.value,
       createdAt: new Date(),
       role: "employee",
-        profileImage: profileImage ? profileImage.name : null, // optional: send image name
+        // profileImage: profileImage ? profileImage.name : null, // optional: send image name
 
     };
 

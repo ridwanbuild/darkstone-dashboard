@@ -1,6 +1,6 @@
 "use client"
 
-import HeroSection from "@/components/HeroSection";
+
 import { useEmployees } from "@/Hook/useEmployees";
 import Link from "next/link";
 import React from "react";
