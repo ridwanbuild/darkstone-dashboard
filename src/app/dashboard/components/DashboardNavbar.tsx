@@ -19,8 +19,8 @@ export default function ProfileDropdown() {
 
   // 🔹 handle logout + redirect
   const handleLogout = async () => {
-    await logOut();          // logout from Firebase
-    router.push("/login");  // go to login page
+    await logOut(); // logout from Firebase
+    router.push("/login"); // go to login page
   };
 
   const menuItems = [
@@ -31,20 +31,14 @@ export default function ProfileDropdown() {
 
   return (
     <div className="bg-slate-200 py-3 px-5 flex gap-5 items-center justify-end">
-      
       {/* greeting & notification */}
       <div className="flex gap-2 items-center">
-
-      
-
         <h2 className="text-gray-700">Hi Admin!</h2>
         <button className="cursor-pointer">
           <IoMdNotificationsOutline size={24} />
         </button>
-
-
-
       </div>
+
 
       {/* profile image */}
       <div className="relative">
@@ -60,7 +54,6 @@ export default function ProfileDropdown() {
         {/* dropdown */}
         {open && (
           <div className="absolute right-0 mt-3 w-68 rounded-xl border border-gray-200 bg-white shadow-lg">
-            
             {/* user info */}
             <div className="flex items-center gap-3 px-4 py-4">
               <Image
@@ -87,8 +80,8 @@ export default function ProfileDropdown() {
                   <button
                     onClick={() => {
                       if (item.label === "Log out") {
-                        handleLogout();  // 🔹 logout + redirect
-                        setOpen(false);  // close dropdown
+                        handleLogout(); // 🔹 logout + redirect
+                        setOpen(false); // close dropdown
                       }
                     }}
                     className={`flex w-full items-center gap-3 px-4 py-2.5 text-sm
@@ -108,13 +101,14 @@ export default function ProfileDropdown() {
                 </li>
               ))}
             </ul>
-            
           </div>
         )}
       </div>
 
-        <Link className="bg-slate-300 rounded-full px-4 py-1" href={"/"}> Back </Link>
-
+      <Link className="bg-slate-300 rounded-full px-4 py-1" href={"/"}>
+        {" "}
+        Back{" "}
+      </Link>
     </div>
   );
 }

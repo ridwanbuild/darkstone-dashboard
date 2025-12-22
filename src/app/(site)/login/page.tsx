@@ -10,8 +10,7 @@ export default function LoginPage() {
   const { login, loading } = useAuth();
   const router = useRouter();
 
-  // demo auth 
-
+  // demo auth
 
   // handle form submit
   const handleSubmit = async (e: any) => {
@@ -25,7 +24,7 @@ export default function LoginPage() {
       // call login function
       await login(email, password);
 
-        // (temporary logic – will be replaced later)
+      // (temporary logic – will be replaced later)
       const isAdmin = email === "admin@gmail.com";
 
       // success toast
@@ -33,23 +32,18 @@ export default function LoginPage() {
         position: "top-center",
       });
 
-
       if (isAdmin) {
-        return router.push("/dashboard")
+        return router.push("/dashboard");
       } else {
-        return router.push("user-dashboard")
+        return router.push("user-dashboard");
       }
-
-
     } catch (error) {
       // error toast
       toast.error("Email or iqama is incorrect", {
         position: "top-center",
       });
-
     }
   };
-
 
   const handlerIqamaNumber = () => {
     return toast.success(
@@ -57,13 +51,8 @@ export default function LoginPage() {
     );
   };
 
-
-
-
-
-
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#F5F7FF] via-[#fffbee] to-[#E6EFFF] px-4">
+    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-[#F5F7FF] via-[#fffbee] to-[#E6EFFF] px-4">
       {/* Login Card */}
       <div className="flex w-full max-w-96 flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-8 shadow-lg">
         {/* Title */}
@@ -123,10 +112,21 @@ export default function LoginPage() {
           >
             Login
           </button>
-
-
-
         </form>
+      </div>
+
+      <div className="mt-5 text-gray-500 flex items-center justify-center flex-col">
+
+        <div className="flex items-center justify-center flex-col">
+          <h1>Admin: admin@gmail.com</h1>
+          <h1>Pass: 123456</h1>
+        </div>
+
+        <div className="flex items-center justify-center flex-col">
+          <h1>user: user@gmail.com</h1>
+          <h1>Pass: 123456</h1>
+        </div>
+
       </div>
 
 
