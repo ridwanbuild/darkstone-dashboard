@@ -18,11 +18,15 @@ export default function Employees() {
   if (loading) return <p>Loading employees...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
+  
+
   // Filter employees based on search term
   const filteredEmployees = employees.filter((emp) =>
     emp.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     emp.iqamaNumber.includes(searchTerm)
   );
+
+
 
 
   return (
@@ -53,7 +57,7 @@ export default function Employees() {
             <div className="flex items-center mb-4">
               {emp.profileImage ? (
                 <img
-                  src={`http://localhost:5000/uploads/${emp.profileImage}`}
+                  src={`https://darkstone-dashboard-server.vercel.app/uploads/${emp.profileImage}`}
                   alt="Profile"
                   className="w-16 h-16 rounded-full object-cover mr-4"
                 />

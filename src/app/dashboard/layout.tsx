@@ -18,6 +18,7 @@ export default function DashboardLayout({
     
     return (
 
+      
      <div className="min-h-screen flex flex-col items-center justify-center bg-white text-center px-4">
         <h2 className="text-lg font-semibold mb-2">
           Preparing your dashboard
@@ -27,6 +28,7 @@ export default function DashboardLayout({
           This will only take a moment.
         </p>
       </div>
+
 
 
     );

@@ -15,6 +15,7 @@ export interface Employee {
   address: string;
   createdAt: string;
   role: string;
+  profileImage?: string | null;
 }
 
 export function useEmployees() {
@@ -25,7 +26,7 @@ export function useEmployees() {
   const fetchEmployees = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/company");
+      const res = await fetch("https://darkstone-dashboard-server.vercel.app/company");
       if (!res.ok) throw new Error("Failed to fetch employees");
       const data = await res.json();
       setEmployees(data);

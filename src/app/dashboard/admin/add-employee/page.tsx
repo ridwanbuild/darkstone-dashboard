@@ -32,7 +32,7 @@ export default function AddEmployee() {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/company", {
+      const res = await fetch("https://darkstone-dashboard-server.vercel.app/company", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
