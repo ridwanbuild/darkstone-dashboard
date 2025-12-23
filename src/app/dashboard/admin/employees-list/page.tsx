@@ -10,7 +10,7 @@ export default function Page() {
     if (error) return <div className="p-10 text-red-500 text-center">Error: {error}</div>;
 
     return (
-        <div className="p-6">
+        <div className="">
             <h1 className="text-2xl font-bold mb-6">Employee List</h1>
             
             <div className="overflow-x-auto shadow-sm border border-gray-200 rounded-lg">

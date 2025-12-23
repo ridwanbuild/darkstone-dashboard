@@ -53,7 +53,7 @@ export default function Sidebar() {
         <div className="bg-white w-full py-10">
         <button
           onClick={() => setOpen(true)}
-          className="md:hidden fixed top-4 cursor-pointer border p-1 rounded-sm border-gray-400 left-4 z-50 text-2xl text-gray-700"
+          className="md:hidden fixed top-4 bg-white cursor-pointer border p-1 rounded-sm border-gray-400 left-4 z-50 text-2xl text-gray-700"
         >
           <FiMenu />
         </button>

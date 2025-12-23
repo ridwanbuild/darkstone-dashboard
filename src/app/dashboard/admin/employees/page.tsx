@@ -28,7 +28,7 @@ export default function Employees() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto p-4">
+    <div className="max-w-7xl border mx-auto ">
       {/* Search Bar */}
       <div className="mb-6">
         <input

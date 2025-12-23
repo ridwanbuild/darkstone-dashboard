@@ -30,7 +30,7 @@ export default function ProfileDropdown() {
   ];
 
   return (
-    <div className="bg-slate-200 py-3 px-5 flex gap-5 items-center justify-end">
+    <div className="bg-slate-200 py-3  px-5 flex gap-5 items-center justify-end">
       {/* greeting & notification */}
       <div className="flex gap-2 items-center">
         <h2 className="text-gray-700">Hi Admin!</h2>

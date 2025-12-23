@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-
 export default function BroadcastCenter() {
+    
   const [messageType, setMessageType] = useState("SMS");
   const [recipient, setRecipient] = useState("All Employees");
   const [schedule, setSchedule] = useState("Send Now");
@@ -23,13 +23,13 @@ export default function BroadcastCenter() {
 
     console.log({ type, category, template, content, targetRecipient, scheduleOption, scheduleDate });
     alert("Check console for form data");
-    
+
 
 
   };
 
   return (
-    <div className="min-h-screen p-4">
+    <div className="min-h-screen ">
       <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200">
         <div className="px-6 py-4 border-b border-gray-100">
           <h1 className="text-lg font-semibold text-gray-800">Create New Broadcast</h1>
