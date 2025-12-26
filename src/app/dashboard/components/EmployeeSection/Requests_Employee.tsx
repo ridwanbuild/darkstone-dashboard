@@ -20,8 +20,60 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { ClipboardList } from "lucide-react"
+import { useEmployees } from "@/Hook/useEmployees"
+import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 
 export function Requests_Employee() {
+
+   const { employees } = useEmployees();
+
+  const employee = employees[0];
+
+  const router = useRouter();
+
+  const handlerRequest = async (e: any) => {
+    e.preventDefault();
+
+    const formData = e.target;
+
+    const typeRequest = formData.typeRequest.value;
+    const subject = formData.subject.value;
+    const reason = formData.reason.value;
+
+    console.log({ typeRequest, subject, reason });
+
+    try {
+      const res = await fetch(
+        "https://darkstone-dashboard-server.vercel.app/request",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+
+      const result = await res.json();
+      toast.success(result.message || "Employee added Request note!");
+      router.push("/dashboard/admin/employees");
+    } catch (error) {
+      console.error(error);
+      // Show an error toast to inform the user something went wrong
+      return toast.error("Failed to add employee. Please try again");
+    }
+
+    
+  };
+
+
+
+
+
+
+
+
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -34,7 +86,7 @@ export function Requests_Employee() {
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={handlerRequest}>
           <DialogHeader>
             <div className="flex items-center gap-2 text-green-600 mb-1">
               <ClipboardList className="h-5 w-5" />
@@ -49,7 +101,9 @@ export function Requests_Employee() {
             {/* Request Category */}
             <div className="grid gap-2">
               <Label htmlFor="request-type">Type of Request</Label>
-              <Select defaultValue="leave">
+
+              <Select name="typeRequest" defaultValue="leave">
+
                 <SelectTrigger id="request-type" className="focus:ring-green-500">
                   <SelectValue placeholder="Select request type" />
                 </SelectTrigger>
@@ -60,6 +114,8 @@ export function Requests_Employee() {
                   <SelectItem value="reimbursement">Expense Reimbursement</SelectItem>
                 </SelectContent>
               </Select>
+
+              
             </div>
 
             {/* Request Title */}
@@ -67,6 +123,7 @@ export function Requests_Employee() {
               <Label htmlFor="title">Subject</Label>
               <Input
                 id="title"
+                name="subject"
                 placeholder="e.g., Annual Leave Request"
                 className="focus-visible:ring-green-500"
               />
@@ -77,6 +134,7 @@ export function Requests_Employee() {
               <Label htmlFor="details">Details / Reason</Label>
               <Textarea
                 id="details"
+                name="reason"
                 placeholder="Please provide more information about your request..."
                 className="min-h-[100px] focus-visible:ring-green-500"
               />

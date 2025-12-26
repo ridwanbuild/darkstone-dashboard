@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -8,14 +8,56 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox" // Assuming you have shadcn checkbox
-import { BellRing } from "lucide-react"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox"; // Assuming you have shadcn checkbox
+import { BellRing } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEmployees } from "@/Hook/useEmployees";
+import toast from "react-hot-toast";
 
 export function Notification() {
+  const { employees } = useEmployees();
+
+  const employee = employees[0];
+
+  const router = useRouter();
+
+  const handlerNotification = async (e: any) => {
+    e.preventDefault();
+
+    const formData = e.target;
+    const subjectName = formData.subjectName.value;
+    const message = formData.message.value;
+
+    console.log({ subjectName, message });
+
+    try {
+      const res = await fetch(
+        "https://darkstone-dashboard-server.vercel.app/notification",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+
+      const result = await res.json();
+      toast.success(result.message || "Employee added notification note!");
+      router.push("/dashboard/admin/employees");
+    } catch (error) {
+      console.error(error);
+      // Show an error toast to inform the user something went wrong
+      return toast.error("Failed to add employee. Please try again");
+    }
+
+
+
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,14 +70,15 @@ export function Notification() {
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={handlerNotification}>
           <DialogHeader>
             <div className="flex items-center gap-2 text-teal-600 mb-1">
               <BellRing className="h-5 w-5" />
               <DialogTitle>Send Notification</DialogTitle>
             </div>
             <DialogDescription>
-              Send an internal update or announcement to this employee's dashboard.
+              Send an internal update or announcement to this employee's
+              dashboard.
             </DialogDescription>
           </DialogHeader>
 
@@ -45,6 +88,7 @@ export function Notification() {
               <Label htmlFor="subject">Subject</Label>
               <Input
                 id="subject"
+                name="subjectName"
                 placeholder="e.g., Policy Update, Schedule Change"
                 className="focus-visible:ring-teal-500"
               />
@@ -55,6 +99,7 @@ export function Notification() {
               <Label htmlFor="message">Message</Label>
               <Textarea
                 id="message"
+                name="message"
                 placeholder="Type your announcement here..."
                 className="min-h-[100px] focus-visible:ring-teal-500"
               />
@@ -76,12 +121,15 @@ export function Notification() {
             <DialogClose asChild>
               <Button variant="ghost">Cancel</Button>
             </DialogClose>
-            <Button type="submit" className="bg-teal-600 hover:bg-teal-700 text-white">
+            <Button
+              type="submit"
+              className="bg-teal-600 hover:bg-teal-700 text-white"
+            >
               Send Notification
             </Button>
           </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

@@ -12,9 +12,66 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { useEmployees } from "@/Hook/useEmployees"
 import { PartyPopper } from "lucide-react" // Optional: adds a celebration icon
+import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 
 export function HappyNote() {
+
+
+  const { employees } = useEmployees();
+
+  const employee = employees[0];
+
+  const router = useRouter();
+
+  const handlerHayppyNote = async (e: any) => {
+    e.preventDefault();
+
+    const formData = e.target;
+
+    const fullName = formData.fullName.value;
+    const message = formData.message.value;
+   
+    console.log({ fullName, message });
+
+
+    try {
+      const res = await fetch(
+        "https://darkstone-dashboard-server.vercel.app/happy",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+
+      const result = await res.json();
+      toast.success(result.message || "Employee added happy note!");
+      router.push("/dashboard/admin/employees");
+    } catch (error) {
+      console.error(error);
+      // Show an error toast to inform the user something went wrong
+      return toast.error("Failed to add employee. Please try again");
+    }
+
+
+
+
+
+
+
+
+  };
+
+
+
+
+
+
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -27,7 +84,7 @@ export function HappyNote() {
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={handlerHayppyNote}>
           <DialogHeader>
             <div className="flex items-center gap-2 text-orange-600 mb-1">
               <PartyPopper className="h-5 w-5" />
@@ -42,11 +99,11 @@ export function HappyNote() {
           <div className="grid gap-4 py-4">
             {/* Employee Target */}
             <div className="grid gap-2">
-              <Label htmlFor="name-1">Recipient</Label>
+              <Label htmlFor="name-1">Recipient Name</Label>
               <Input
                 id="name-1"
-                name="name"
-                defaultValue="Pedro Duarte"
+                name="fullName"
+                defaultValue={employee?.fullName}
                 className="bg-orange-50/50 border-orange-100"
               />
             </div>
@@ -56,6 +113,7 @@ export function HappyNote() {
               <Label htmlFor="note">The Good News / Praise</Label>
               <Textarea
                 id="note"
+                name="message"
                 placeholder="e.g., Amazing job handling the client presentation! Everyone was impressed."
                 className="min-h-[100px] border-orange-100 focus-visible:ring-orange-500"
               />

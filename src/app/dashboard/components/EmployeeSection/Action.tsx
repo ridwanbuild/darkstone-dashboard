@@ -24,13 +24,13 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 export function Action() {
+  const { employees } = useEmployees();
 
-  const {employees} = useEmployees()
+  const employee = employees[0]
 
-   const router = useRouter()
+  const router = useRouter();
 
-
-  const handlerAction =  async(e: React.FormEvent<HTMLFormElement>) => {
+  const handlerAction = async (e: React.FormEvent<HTMLFormElement>) => {
     // FIX 1: Prevent page reload
     e.preventDefault();
     // FIX 2: Use FormData to extract values based on the "name" attributes
@@ -43,26 +43,24 @@ export function Action() {
     };
     console.log("Form Submitted:", actionData);
 
-
-
     try {
-      const res = await fetch("https://darkstone-dashboard-server.vercel.app/company", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(actionData),
-      });
+      const res = await fetch(
+        "https://darkstone-dashboard-server.vercel.app/action",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(actionData),
+        }
+      );
 
       const result = await res.json();
       toast.success(result.message || "Employee added successfully!");
-      router.push("/dashboard/admin/employees")
+      router.push("/dashboard/admin/employees");
 
       // toast.success("Employee added successfully!");
       console.log(result.message);
-
-      
-
     } catch (error) {
       console.error(error);
 
@@ -72,11 +70,13 @@ export function Action() {
 
 
 
-    
-
-
 
   };
+
+
+
+
+
 
   return (
     <Dialog>
@@ -93,7 +93,7 @@ export function Action() {
         <DialogHeader>
           <DialogTitle>Administrative Action</DialogTitle>
           <DialogDescription>
-            Update status or record notes for <strong>Pedro Duarte</strong>.
+            Update status or record notes for <strong> {employee?.fullName} </strong>.
           </DialogDescription>
         </DialogHeader>
 

@@ -52,6 +52,9 @@ export default function AddEmployee() {
 
       return toast.error("Failed to add employee. Please try again");
     }
+
+    
+
   };
 
   return (
