@@ -7,7 +7,10 @@ export default function Page() {
     const { employees, loading, error } = useEmployees();
 
     if (loading) return <div className="p-10 text-center animate-pulse text-gray-500">Loading data...</div>;
+    
     if (error) return <div className="p-10 text-red-500 text-center">Error: {error}</div>;
+
+
 
     return (
         <div className="">

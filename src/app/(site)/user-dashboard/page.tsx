@@ -18,6 +18,7 @@ import {
   FiArrowLeft,
   FiChevronRight,
   FiUser,
+  FiActivity,
 } from "react-icons/fi";
 
 export default function UserDashboard() {
@@ -38,12 +39,13 @@ export default function UserDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white ">
       {/* --- Simple Sticky Navbar --- */}
+
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between ">
           <div className="flex items-center gap-4">
-            <Link href="/" className="p-2 hover:bg-gray-50 rounded-full transition text-gray-400 hover:text-gray-900">
+            <Link href="/" className="p-2 hover:bg-gray-50 rounded-full border bg-slate-100 text-gray-700 transition hover:text-gray-900">
               <FiArrowLeft size={20} />
             </Link>
             <span className="font-bold text-gray-800 tracking-tight">Portal</span>
@@ -63,19 +65,19 @@ export default function UserDashboard() {
 
       <div className="max-w-5xl mx-auto px-4 py-8">
         {/* --- Welcome --- */}
-        <div className="mb-10">
+        <div className="mb-5">
           <h1 className="text-2xl font-bold text-teal-700">Dashboard</h1>
           <p className="text-sm text-gray-400 mt-1">Real-time overview of your activity.</p>
         </div>
 
         {/* --- Card Grid --- */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-10">
           {quickCards.map((card, index) => {
             const Icon = card.icon;
             return (
               <div
                 key={index}
-                className="bg-white border border-gray-100 p-5 rounded-2xl flex items-center justify-between group hover:border-gray-300 transition-all cursor-pointer"
+                className="bg-white border shadow-md border-gray-100 p-5 rounded-2xl flex items-center justify-between group transition-all cursor-pointer hover:border-teal-100"
               >
                 <div className="flex items-center gap-4">
                   <div className={`h-11 w-11 rounded-xl ${card.bg} ${card.color} flex items-center justify-center`}>
@@ -98,21 +100,63 @@ export default function UserDashboard() {
           })}
         </div>
 
+        {/* --- Clean Activity Summary (Updated to 4 Options) --- */}
+        <div className="bg-white shadow-md  border border-slate-200 rounded-md p-6 md:p-8">
+
+          <div className="flex items-center gap-2 mb-6">
+            <FiActivity className="text-teal-600" />
+            <h2 className="text-sm font-bold uppercase tracking-widest text-slate-500">Activity Summary</h2>
+          </div>
+          
+          <div className="grid lg:grid-cols-4 grid-cols-2 gap-8">
+            
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-slate-800">{requests.length}</p>
+              <p className="text-xs font-medium text-slate-500">Pending Requests</p>
+              <div className="h-1 w-12 bg-green-500 rounded-full mt-2" />
+            </div>
+            
+            <div className="space-y-1 border-l-0 sm:border-l border-slate-200 sm:pl-8">
+              <p className="text-2xl font-bold text-slate-800">{tickets.length}</p>
+              <p className="text-xs font-medium text-slate-500">Open Tickets</p>
+              <div className="h-1 w-12 bg-blue-500 rounded-full mt-2" />
+            </div>
+
+            <div className="space-y-1 border-l-0 md:border-l border-slate-200 md:pl-8">
+              <p className="text-2xl font-bold text-slate-800">{notifications.length}</p>
+              <p className="text-xs font-medium text-slate-500">Unread Updates</p>
+              <div className="h-1 w-12 bg-teal-500 rounded-full mt-2" />
+            </div>
+
+            {/* --- New Fourth Summary Option --- */}
+            <div className="space-y-1 border-l-0 md:border-l border-slate-200 md:pl-8">
+              <p className="text-2xl font-bold text-slate-800">{alerts.length + actions.length}</p>
+              <p className="text-xs font-medium text-slate-500">Action Items</p>
+              <div className="h-1 w-12 bg-red-400 rounded-full mt-2" />
+            </div>
+
+          </div>
+        </div>
+
+
         {/* --- Footer Status --- */}
-        <footer className="mt-12 py-6 border-t border-gray-50">
+        <footer className="mt-5  border-t border-gray-50">
+
            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <div className="h-1.5 w-1.5 bg-teal-500 rounded-full animate-pulse" />
                 <p className="text-[12px] text-gray-500 font-medium uppercase tracking-wider">
-                  Operational: {notifications.length} Unread notifications
+                  Operational: System is live
                 </p>
               </div>
               <p className="text-[11px] text-gray-300">© 2024 Dashboard Inc.</p>
            </div>
+
+
         </footer>
 
-
       </div>
+
     </div>
   );
 }
