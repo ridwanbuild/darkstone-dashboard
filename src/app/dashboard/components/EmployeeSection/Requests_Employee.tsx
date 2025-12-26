@@ -23,10 +23,13 @@ import { ClipboardList } from "lucide-react"
 import { useEmployees } from "@/Hook/useEmployees"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
+import { useState } from "react"
 
 export function Requests_Employee() {
 
    const { employees } = useEmployees();
+
+   const [open, setOpen] = useState(false); // 2. Add open state
 
   const employee = employees[0];
 
@@ -42,6 +45,7 @@ export function Requests_Employee() {
       typeRequest: formData.typeRequest.value,
       subject: formData.subject.value,
       reason: formData.reason.value,
+      email: employee?.email
     };
 
       console.log(requestData)
@@ -61,6 +65,7 @@ export function Requests_Employee() {
       const result = await res.json();
       toast.success(result.message || "Employee added Request note!");
       router.push("/dashboard/admin/employees");
+      setOpen(false); 
     } catch (error) {
       console.error(error);
       // Show an error toast to inform the user something went wrong
@@ -79,7 +84,8 @@ export function Requests_Employee() {
 
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
+
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -149,7 +155,7 @@ export function Requests_Employee() {
             <DialogClose asChild>
               <Button variant="ghost">Cancel</Button>
             </DialogClose>
-            <Button type="submit" className="bg-green-600 hover:bg-green-700 text-white">
+            <Button type="submit" className="bg-green-600 hover:bg-green-700 cursor-pointer text-white">
               Submit Request
             </Button>
           </DialogFooter>

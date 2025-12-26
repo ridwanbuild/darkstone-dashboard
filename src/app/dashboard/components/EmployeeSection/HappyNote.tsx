@@ -15,10 +15,12 @@ import { Textarea } from "@/components/ui/textarea"
 import { useEmployees } from "@/Hook/useEmployees"
 import { PartyPopper } from "lucide-react" // Optional: adds a celebration icon
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import toast from "react-hot-toast"
 
 export function HappyNote() {
 
+  const [open, setOpen] = useState(false); // 2. Add open state
 
   const { employees } = useEmployees();
 
@@ -34,6 +36,7 @@ export function HappyNote() {
     const happyData = {
       fullName: formData.fullName.value,
       message: formData.message.value,
+      email: employee?.email
     };
 
     console.log(happyData)
@@ -52,7 +55,9 @@ export function HappyNote() {
 
       const result = await res.json();
       toast.success(result.message || "Employee added happy note!");
+
       router.push("/dashboard/admin/employees");
+      setOpen(false); 
     } catch (error) {
       console.error(error);
       // Show an error toast to inform the user something went wrong
@@ -75,7 +80,8 @@ export function HappyNote() {
 
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
+
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -106,7 +112,8 @@ export function HappyNote() {
                 id="name-1"
                 name="fullName"
                 defaultValue={employee?.fullName}
-                className="bg-orange-50/50 border-orange-100"
+                readOnly
+                className="bg-orange-50/50 text-gray-300 border-orange-100 cursor-not-allowed"
               />
             </div>
 
@@ -128,7 +135,7 @@ export function HappyNote() {
             </DialogClose>
             <Button 
               type="submit" 
-              className="bg-orange-500 hover:bg-orange-600 text-white"
+              className="bg-orange-500 hover:bg-orange-600 text-white cursor-pointer"
             >
               Send Praise
             </Button>

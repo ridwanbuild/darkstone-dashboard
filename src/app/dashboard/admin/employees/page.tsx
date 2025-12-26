@@ -31,7 +31,7 @@ export default function Employees() {
   console.log(employees)
 
   return (
-    <div className="max-w-7xl border mx-auto ">
+    <div className="max-w-7xl  mx-auto ">
       {/* Search Bar */}
       <div className="mb-6">
         <input

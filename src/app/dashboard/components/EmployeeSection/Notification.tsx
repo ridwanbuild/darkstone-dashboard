@@ -17,10 +17,12 @@ import { BellRing } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEmployees } from "@/Hook/useEmployees";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 export function Notification() {
   const { employees } = useEmployees();
 
+  const [open, setOpen] = useState(false); // 2. Add open state
   const employee = employees[0];
 
   const router = useRouter();
@@ -36,6 +38,7 @@ export function Notification() {
     const notificationData = {
       subjectName: formData.subjectName.value,
       message: formData.message.value,
+      email: employee?.email
     };
 
     console.log(notificationData)
@@ -56,6 +59,7 @@ export function Notification() {
       const result = await res.json();
       toast.success(result.message || "Employee added notification note!");
       router.push("/dashboard/admin/employees");
+      setOpen(false); 
     } catch (error) {
       console.error(error);
       // Show an error toast to inform the user something went wrong
@@ -67,7 +71,7 @@ export function Notification() {
   };
 
   return (
-    <Dialog>
+   <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -131,7 +135,7 @@ export function Notification() {
             </DialogClose>
             <Button
               type="submit"
-              className="bg-teal-600 hover:bg-teal-700 text-white"
+              className="bg-teal-600 hover:bg-teal-700 text-white cursor-pointer" 
             >
               Send Notification
             </Button>

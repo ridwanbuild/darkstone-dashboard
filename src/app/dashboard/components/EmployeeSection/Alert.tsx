@@ -21,12 +21,15 @@ import {
 import { useEmployees } from "@/Hook/useEmployees";
 import { AlertCircle } from "lucide-react"; // Optional: for a visual icon
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import toast from "react-hot-toast";
 
 export function Alert() {
   // all employees data
   const { employees } = useEmployees();
+
+  const [open, setOpen] = useState(false); // 2. Add open state
 
   const employee = employees[0];
 
@@ -42,6 +45,7 @@ export function Alert() {
     iqNumber: formData.iqNumber.value,
     severityLevel: formData.severityLevel.value,
     reason: formData.reason.value,
+    email: employee?.email
   };
 
     console.log({ alertData });
@@ -63,7 +67,9 @@ export function Alert() {
       
       const result = await res.json();
       toast.success(result.message || "Employee alert successfully!");
+      setOpen(false); 
       router.push("/dashboard/admin/employees");
+
     } catch (error) {
       console.error(error);
       // Show an error toast to inform the user something went wrong
@@ -80,7 +86,8 @@ export function Alert() {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
+
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -170,15 +177,19 @@ export function Alert() {
           </div>
 
           <DialogFooter className="sm:justify-between cursor-pointer">
+            
             <DialogClose asChild>
               <Button type="button" variant="ghost">
                 Cancel
               </Button>
             </DialogClose>
-            <Button type="submit" variant="destructive">
+
+            <Button className="cursor-pointer" type="submit" variant="destructive">
               Confirm Alert
             </Button>
+
           </DialogFooter>
+          
         </form>
       </DialogContent>
     </Dialog>

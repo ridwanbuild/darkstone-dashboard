@@ -1,191 +1,117 @@
 "use client";
 
+import { useActions } from "@/Hook/useActions";
+import { useAlerts } from "@/Hook/useAlerts";
+import { useHappyNotes } from "@/Hook/useHappyNotes";
+import { useNotifications } from "@/Hook/useNotifications";
+import { useRequests } from "@/Hook/useRequests";
+import { useSupport } from "@/Hook/useSupport";
 import Link from "next/link";
 import React from "react";
 import {
   FiBell,
-  FiSearch,
   FiMail,
-  FiBox,
   FiSmile,
   FiHelpCircle,
   FiPenTool,
+  FiAlertTriangle,
+  FiArrowLeft,
+  FiChevronRight,
   FiUser,
-  FiActivity,
-  FiCheckCircle,
 } from "react-icons/fi";
-import { WiDaySunny } from "react-icons/wi";
 
-/* ---------------- Quick Access Cards ---------------- */
-const quickCards = [
-  {
-    title: "Happy Notes",
-    desc: "Appreciation and feedback from the company",
-    icon: FiSmile,
-  },
-  {
-    title: "Assets",
-    desc: "View assigned devices and resources",
-    icon: FiBox,
-  },
-  {
-    title: "Actions",
-    desc: "Report or follow up on company issues",
-    icon: FiMail,
-  },
-  {
-    title: "Support Tickets",
-    desc: "Raise or track IT support requests",
-    icon: FiHelpCircle,
-  },
-  {
-    title: "My Requests",
-    desc: "Access internal company requests",
-    icon: FiPenTool,
-  },
-  {
-    title: "Notifications",
-    desc: "View recent alerts and updates",
-    icon: FiBell,
-  },
-];
+export default function UserDashboard() {
+  const { data: actions = [] as any[] } = useActions();
+  const { alerts = [] as any[] } = useAlerts();
+  const { notes = [] as any[] } = useHappyNotes();
+  const { notifications = [] as any[] } = useNotifications();
+  const { requests = [] as any[] } = useRequests();
+  const { tickets = [] as any[] } = useSupport();
 
-/* ---------------- Employee Status Cards (RE-USED) ---------------- */
-const statusCards = [
-  {
-    title: "My Profile",
-    icon: FiUser,
-    iconColor: "text-teal-600",
-    items: ["Role: Software Engineer", "Status: Active"],
-  },
-  {
-    title: "Work Status",
-    icon: FiActivity,
-    iconColor: "text-indigo-600",
-    items: ["Today: Working from Office", "Shift: 9:00 AM – 6:00 PM"],
-  },
-
-  {
-    title: "Happiness Index",
-    icon: FiCheckCircle,
-    iconColor: "text-green-600",
-    items: ["Mood: 😊 Happy", "Last feedback: Positive"],
-  },
-];
-
-export default function userDashboard() {
-  const currentTime = new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const quickCards = [
+    { title: "Happy Notes", count: notes.length, msg: "Great job!", icon: FiSmile, color: "text-orange-500", bg: "bg-orange-50" },
+    { title: "Actions", count: actions.length, msg: "Stay proactive.", icon: FiMail, color: "text-indigo-500", bg: "bg-indigo-50" },
+    { title: "Support", count: tickets.length, msg: "Need help?", icon: FiHelpCircle, color: "text-blue-500", bg: "bg-blue-50" },
+    { title: "Requests", count: requests.length, msg: "Balance is key.", icon: FiPenTool, color: "text-green-500", bg: "bg-green-50" },
+    { title: "Notifications", count: notifications.length, msg: "Stay updated.", icon: FiBell, color: "text-teal-500", bg: "bg-teal-50" },
+    { title: "Alerts", count: alerts.length, msg: "Keep it safe.", icon: FiAlertTriangle, color: "text-red-500", bg: "bg-red-50" },
+  ];
 
   return (
-    <div className="min-h-screen  bg-gray-50">
-      <div className="container mx-auto px-4">
-        {/* ---------------- Top Navbar ---------------- */}
-
-        <header className="pt-2 lg:py-16 lg:pt-5 pb-8">
-          <div className="flex bg-white shadow-md border border-gray-200 rounded-full items-center justify-between px-4 py-3 max-w-5xl mx-auto">
-            <h1 className="text-xl font-semibold text-gray-800">Dashboard</h1>
-
-            {/* Search */}
-            <div className="hidden md:flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg w-72">
-              <FiSearch className="text-gray-500" />
-              <input
-                type="text"
-                placeholder="Search..."
-                className="bg-transparent outline-none text-sm w-full"
-              />
-            </div>
-
-            {/* Time & Weather */}
-            <div className="flex items-center gap-4 text-sm text-gray-600">
-              <span className="hidden sm:block">{currentTime}</span>
-              <div className="flex items-center gap-1">
-                <WiDaySunny className="text-xl text-yellow-500" />
-                <span>32°C</span>
-              </div>
-            </div>
-
-            <div>
-              <Link
-                href={"/"}
-                className="text-gray-600 bg-slate-100  px-4 rounded-full py-2  "
-              >
-                {" "}
-                Back{" "}
-              </Link>
-            </div>
+    <div className="min-h-screen bg-white">
+      {/* --- Simple Sticky Navbar --- */}
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Link href="/" className="p-2 hover:bg-gray-50 rounded-full transition text-gray-400 hover:text-gray-900">
+              <FiArrowLeft size={20} />
+            </Link>
+            <span className="font-bold text-gray-800 tracking-tight">Portal</span>
           </div>
-        </header>
+          
+          <div className="flex items-center gap-3">
+             <div className="text-right hidden sm:block">
+                <p className="text-xs font-bold text-gray-900 leading-none">Employee</p>
+                <p className="text-[10px] text-gray-400">View Profile</p>
+             </div>
+             <div className="h-9 w-9 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-500">
+                <FiUser size={18} />
+             </div>
+          </div>
+        </div>
+      </nav>
 
-        {/* ---------------- Main Content ---------------- */}
-        <main className="max-w-7xl  mx-auto px-4 pb-16 lg:py-6 space-y-10">
-          {/* -------- Employee Status Section (RE-USED) -------- */}
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        {/* --- Welcome --- */}
+        <div className="mb-10">
+          <h1 className="text-2xl font-bold text-teal-700">Dashboard</h1>
+          <p className="text-sm text-gray-400 mt-1">Real-time overview of your activity.</p>
+        </div>
 
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {statusCards.map((card, index) => {
-              const Icon = card.icon;
-
-              return (
-                <div
-                  key={index}
-                  className="bg-white border cursor-pointer border-slate-200 rounded-xl p-5 shadow-sm"
-                >
-                  <div className="flex items-center gap-3">
-                    <Icon className={`text-2xl ${card.iconColor}`} />
-                    <h3 className="font-semibold text-gray-800">
-                      {card.title}
-                    </h3>
+        {/* --- Card Grid --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+          {quickCards.map((card, index) => {
+            const Icon = card.icon;
+            return (
+              <div
+                key={index}
+                className="bg-white border border-gray-100 p-5 rounded-2xl flex items-center justify-between group hover:border-gray-300 transition-all cursor-pointer"
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`h-11 w-11 rounded-xl ${card.bg} ${card.color} flex items-center justify-center`}>
+                    <Icon className="text-lg" />
                   </div>
-
-                  {card.items.map((item, i) => (
-                    <p
-                      key={i}
-                      className={`text-sm text-gray-500 ${
-                        i === 0 ? "mt-2" : ""
-                      }`}
-                    >
-                      {item}
-                    </p>
-                  ))}
+                  <div>
+                    <h3 className="font-semibold text-gray-800 text-sm">{card.title}</h3>
+                    <p className="text-[11px] text-gray-400 font-medium uppercase tracking-wide">{card.msg}</p>
+                  </div>
                 </div>
-              );
-            })}
-          </section>
+                
+                <div className="flex items-center gap-3">
+                  <span className="text-lg font-bold text-gray-900">
+                    {card.count}
+                  </span>
+                  <FiChevronRight className="text-gray-300 group-hover:text-gray-500 transition-colors" />
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
-          {/* ---------------- Quick Access ---------------- */}
-          <section>
-            <h2 className="text-xl font-semibold text-teal-800  mb-4">
-              Quick Access
-            </h2>
+        {/* --- Footer Status --- */}
+        <footer className="mt-12 py-6 border-t border-gray-50">
+           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <div className="h-1.5 w-1.5 bg-teal-500 rounded-full animate-pulse" />
+                <p className="text-[12px] text-gray-500 font-medium uppercase tracking-wider">
+                  Operational: {notifications.length} Unread notifications
+                </p>
+              </div>
+              <p className="text-[11px] text-gray-300">© 2024 Dashboard Inc.</p>
+           </div>
+        </footer>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {quickCards.map((card, index) => {
-                const Icon = card.icon;
 
-                return (
-                  <div
-                    key={index}
-                    className="bg-white cursor-pointer rounded-xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="p-3 rounded-xl bg-teal-600 text-white">
-                        <Icon className="text-2xl" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-800">
-                          {card.title}
-                        </h3>
-                        <p className="text-sm text-gray-500">{card.desc}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-        </main>
       </div>
     </div>
   );

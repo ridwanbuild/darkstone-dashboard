@@ -22,9 +22,14 @@ import {
 import { useEmployees } from "@/Hook/useEmployees";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+
 
 export function Action() {
   const { employees } = useEmployees();
+
+  const [open, setOpen] = useState(false); // 2. Add open state
 
   const employee = employees[0]
 
@@ -40,7 +45,12 @@ export function Action() {
       category: formData.get("category"),
       date: formData.get("date"),
       comment: formData.get("comment"),
+      email: employee?.email
+
     };
+
+    
+
     console.log("Form Submitted:", actionData);
 
     try {
@@ -57,8 +67,9 @@ export function Action() {
 
       const result = await res.json();
       toast.success(result.message || "Employee added successfully!");
-      router.push("/dashboard/admin/employees");
 
+      router.push("/dashboard/admin/employees");
+setOpen(false); 
       // toast.success("Employee added successfully!");
       console.log(result.message);
     } catch (error) {
@@ -79,7 +90,8 @@ export function Action() {
 
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
+      
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -151,9 +163,11 @@ export function Action() {
                 Cancel
               </Button>
             </DialogClose>
-            <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700">
+
+            <Button type="submit" className="bg-indigo-600 cursor-pointer hover:bg-indigo-700">
               Confirm Action
             </Button>
+
           </DialogFooter>
         </form>
       </DialogContent>

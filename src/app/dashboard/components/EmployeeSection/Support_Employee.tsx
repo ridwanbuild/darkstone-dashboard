@@ -23,10 +23,12 @@ import { LifeBuoy } from "lucide-react";
 import { useEmployees } from "@/Hook/useEmployees";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 export function Support_Employee() {
 
 
+  const [open, setOpen] = useState(false); // 2. Add open state
   
    const { employees } = useEmployees();
 
@@ -43,6 +45,7 @@ export function Support_Employee() {
       issueCategory: formData.issueCategory.value,
       subject: formData.subject.value,
       description: formData.description.value,
+      email: employee?.email
     };
     console.log(supportData)
 
@@ -61,6 +64,7 @@ export function Support_Employee() {
       const result = await res.json();
       toast.success(result.message || "Employee added support!");
       router.push("/dashboard/admin/employees");
+      setOpen(false); // 3. Close the dialog here
     } catch (error) {
       console.error(error);
       // Show an error toast to inform the user something went wrong
@@ -80,7 +84,8 @@ export function Support_Employee() {
 
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
+
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -148,7 +153,7 @@ export function Support_Employee() {
             <DialogClose asChild>
               <Button variant="ghost" type="button">Cancel</Button>
             </DialogClose>
-            <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">
+            <Button type="submit" className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white">
               Submit Ticket
             </Button>
           </DialogFooter>
