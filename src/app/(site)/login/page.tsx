@@ -118,13 +118,13 @@ export default function LoginPage() {
       <div className="mt-5 text-gray-500 flex items-center justify-center flex-col">
 
         <div className="flex items-center justify-center flex-col">
-          <h1>Admin: admin@gmail.com</h1>
-          <h1>Pass: 123456</h1>
+          <h1>admin@gmail.com</h1>
+          <h1>123456</h1>
         </div>
 
         <div className="flex items-center justify-center flex-col">
-          <h1>user: user@gmail.com</h1>
-          <h1>Pass: 123456</h1>
+          <h1>user@gmail.com</h1>
+          <h1>123456</h1>
         </div>
 
       </div>

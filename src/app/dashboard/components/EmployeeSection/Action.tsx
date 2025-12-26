@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -8,52 +8,114 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import { useEmployees } from "@/Hook/useEmployees";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export function Action() {
+
+  const {employees} = useEmployees()
+
+   const router = useRouter()
+
+
+  const handlerAction =  async(e: React.FormEvent<HTMLFormElement>) => {
+    // FIX 1: Prevent page reload
+    e.preventDefault();
+    // FIX 2: Use FormData to extract values based on the "name" attributes
+    const formData = new FormData(e.currentTarget);
+
+    const actionData = {
+      category: formData.get("category"),
+      date: formData.get("date"),
+      comment: formData.get("comment"),
+    };
+    console.log("Form Submitted:", actionData);
+
+
+
+    try {
+      const res = await fetch("https://darkstone-dashboard-server.vercel.app/company", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(actionData),
+      });
+
+      const result = await res.json();
+      toast.success(result.message || "Employee added successfully!");
+      router.push("/dashboard/admin/employees")
+
+      // toast.success("Employee added successfully!");
+      console.log(result.message);
+
+      
+
+    } catch (error) {
+      console.error(error);
+
+      return toast.error("Failed to add employee. Please try again");
+    }
+
+
+
+
+    
+
+
+
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        
         <Button
           variant="outline"
-          className="text-white hover:text-white bg-indigo-500 hover:bg-indigo-600 px-3 py-1 rounded text-xs 0 transition cursor-pointer"
+          className="text-white hover:text-white bg-indigo-500 hover:bg-indigo-600 px-3 py-1 rounded text-xs transition cursor-pointer"
         >
           Action
         </Button>
-
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
-        <form onSubmit={(e) => { e.preventDefault(); /* Handle logic here */ }}>
-          <DialogHeader>
-            <DialogTitle>Administrative Action</DialogTitle>
-            <DialogDescription>
-              Update status or record notes for <strong>Pedro Duarte</strong>.
-            </DialogDescription>
-          </DialogHeader>
+        <DialogHeader>
+          <DialogTitle>Administrative Action</DialogTitle>
+          <DialogDescription>
+            Update status or record notes for <strong>Pedro Duarte</strong>.
+          </DialogDescription>
+        </DialogHeader>
 
+        <form onSubmit={handlerAction}>
           <div className="grid gap-5 py-4">
             {/* Action Type Selection */}
             <div className="grid gap-2">
               <Label htmlFor="action-type">Action Category</Label>
-              <Select defaultValue="performance">
+
+              {/* FIX 3: Added name="category" so FormData can find it */}
+              <Select name="category" defaultValue="performance">
                 <SelectTrigger id="action-type">
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
+
                 <SelectContent>
-                  <SelectItem value="performance">Performance Review</SelectItem>
-                  <SelectItem value="promotion">Promotion/Role Change</SelectItem>
+                  <SelectItem value="performance">
+                    Performance Review
+                  </SelectItem>
+                  <SelectItem value="promotion">
+                    Promotion/Role Change
+                  </SelectItem>
                   <SelectItem value="warning">Official Warning</SelectItem>
                   <SelectItem value="training">Training Completed</SelectItem>
                 </SelectContent>
@@ -63,7 +125,12 @@ export function Action() {
             {/* Effective Date */}
             <div className="grid gap-2">
               <Label htmlFor="date">Effective Date</Label>
-              <Input id="date" type="date" defaultValue={new Date().toISOString().split('T')[0]} />
+              <Input
+                id="date"
+                name="date"
+                type="date"
+                defaultValue={new Date().toISOString().split("T")[0]}
+              />
             </div>
 
             {/* Comment Area */}
@@ -71,6 +138,7 @@ export function Action() {
               <Label htmlFor="comment">Detailed Remarks</Label>
               <Textarea
                 id="comment"
+                name="comment"
                 placeholder="Describe the action taken..."
                 className="min-h-[100px]"
               />
@@ -79,7 +147,9 @@ export function Action() {
 
           <DialogFooter className="gap-2">
             <DialogClose asChild>
-              <Button type="button" variant="secondary">Cancel</Button>
+              <Button type="button" variant="secondary">
+                Cancel
+              </Button>
             </DialogClose>
             <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700">
               Confirm Action
@@ -88,5 +158,5 @@ export function Action() {
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

@@ -2,12 +2,13 @@
 
 import { useEmployees } from "@/Hook/useEmployees";
 import React, { useState } from "react";
-import { Action } from "../../components/EmployeeSection/Action";
+
 import { Alert } from "../../components/EmployeeSection/Alert";
 import { HappyNote } from "../../components/EmployeeSection/HappyNote";
 import { Notification } from "../../components/EmployeeSection/Notification";
 import { Requests_Employee } from "../../components/EmployeeSection/Requests_Employee";
 import { Support_Employee } from "../../components/EmployeeSection/Support_Employee";
+import { Action } from "../../components/EmployeeSection/Action";
 
 export default function Employees() {
   const { employees, loading, error } = useEmployees();
@@ -26,6 +27,8 @@ export default function Employees() {
       (emp.fullName || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
       (emp.iqamaNumber || "").includes(searchTerm)
   );
+
+  console.log(employees)
 
   return (
     <div className="max-w-7xl border mx-auto ">
@@ -111,12 +114,15 @@ export default function Employees() {
 
               {/* Action buttons */}
               <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-50">
-                <Action />
+                
+                <Action  />
                 <Alert />
                 <HappyNote />
                 <Notification />
                 <Requests_Employee />
                 <Support_Employee />
+
+
               </div>
 
               {/* Footer Date */}

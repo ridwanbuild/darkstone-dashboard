@@ -144,7 +144,7 @@ export default function BroadcastCenter() {
           <div className="pt-2">
             <button
               type="submit" // changed to submit
-              className="bg-[#0D7A73] cursor-pointer hover:bg-[#0A635E] text-white px-6 py-2 rounded-md text-sm font-medium shadow-sm transition-colors"
+              className="bg-[#0a0a0a] cursor-pointer hover:bg-[#0A635E] text-white px-6 py-2 rounded-md text-sm font-medium shadow-sm transition-colors"
             >
               {schedule === "Send Now" ? "Send Now" : "Schedule Broadcast"}
             </button>
