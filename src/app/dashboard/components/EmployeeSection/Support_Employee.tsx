@@ -39,11 +39,12 @@ export function Support_Employee() {
 
     const formData = e.target;
 
-    const issueCategory = formData.issueCategory.value;
-    const subject = formData.subject.value;
-    const description = formData.description.value;
-
-    console.log({ issueCategory, subject, description});
+    const supportData = {
+      issueCategory: formData.issueCategory.value,
+      subject: formData.subject.value,
+      description: formData.description.value,
+    };
+    console.log(supportData)
 
     try {
       const res = await fetch(
@@ -53,6 +54,7 @@ export function Support_Employee() {
           headers: {
             "Content-type": "application/json",
           },
+          body: JSON.stringify(supportData),
         }
       );
 

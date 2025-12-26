@@ -37,11 +37,14 @@ export function Requests_Employee() {
 
     const formData = e.target;
 
-    const typeRequest = formData.typeRequest.value;
-    const subject = formData.subject.value;
-    const reason = formData.reason.value;
+    // ১. একটি অবজেক্টে ডাটাগুলো গুছিয়ে নিন
+    const requestData = {
+      typeRequest: formData.typeRequest.value,
+      subject: formData.subject.value,
+      reason: formData.reason.value,
+    };
 
-    console.log({ typeRequest, subject, reason });
+      console.log(requestData)
 
     try {
       const res = await fetch(
@@ -51,6 +54,7 @@ export function Requests_Employee() {
           headers: {
             "Content-type": "application/json",
           },
+          body : JSON.stringify(requestData)
         }
       );
 

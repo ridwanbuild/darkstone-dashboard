@@ -31,11 +31,12 @@ export function HappyNote() {
 
     const formData = e.target;
 
-    const fullName = formData.fullName.value;
-    const message = formData.message.value;
-   
-    console.log({ fullName, message });
+    const happyData = {
+      fullName: formData.fullName.value,
+      message: formData.message.value,
+    };
 
+    console.log(happyData)
 
     try {
       const res = await fetch(
@@ -45,6 +46,7 @@ export function HappyNote() {
           headers: {
             "Content-type": "application/json",
           },
+          body: JSON.stringify(happyData)
         }
       );
 

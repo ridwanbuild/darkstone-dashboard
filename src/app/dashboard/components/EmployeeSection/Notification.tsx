@@ -29,10 +29,17 @@ export function Notification() {
     e.preventDefault();
 
     const formData = e.target;
-    const subjectName = formData.subjectName.value;
-    const message = formData.message.value;
 
-    console.log({ subjectName, message });
+
+
+    
+    const notificationData = {
+      subjectName: formData.subjectName.value,
+      message: formData.message.value,
+    };
+
+    console.log(notificationData)
+
 
     try {
       const res = await fetch(
@@ -42,6 +49,7 @@ export function Notification() {
           headers: {
             "Content-type": "application/json",
           },
+          body: JSON.stringify(notificationData)
         }
       );
 

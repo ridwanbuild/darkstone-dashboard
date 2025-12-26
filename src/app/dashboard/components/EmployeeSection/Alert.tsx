@@ -37,12 +37,15 @@ export function Alert() {
 
     const formData = e.target;
 
-    const employeeName = formData.employeeName.value;
-    const iqNumber = formData.iqNumber.value;
-    const severityLevel = formData.severityLevel.value;
-    const reason = formData.reason.value;
+    const alertData = {
+    employeeName: formData.employeeName.value,
+    iqNumber: formData.iqNumber.value,
+    severityLevel: formData.severityLevel.value,
+    reason: formData.reason.value,
+  };
 
-    console.log({ employeeName, iqNumber, severityLevel, reason });
+    console.log({ alertData });
+
 
     try {
       const res = await fetch(
@@ -52,9 +55,12 @@ export function Alert() {
           headers: {
             "Content-type": "application/json",
           },
+          body: JSON.stringify(alertData)
         }
       );
 
+
+      
       const result = await res.json();
       toast.success(result.message || "Employee alert successfully!");
       router.push("/dashboard/admin/employees");
